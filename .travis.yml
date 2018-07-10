@@ -1,0 +1,15 @@
+language: go
+
+
+before_install:
+    - REPO_NAME=$(basename $PWD)
+    - GITHUB_PATH=$(dirname $(dirname $PWD))
+    - PROJECT_DIR=${GITHUB_PATH}/puneethreddy20/${REPO_NAME}
+    - mkdir -p ${PROJECT_DIR}
+    - rsync -az ${TRAVIS_BUILD_DIR}/ ${PROJECT_DIR}/
+    - export TRAVIS_BUILD_DIR=${PROJECT_DIR}
+    - cd ${PROJECT_DIR}
+
+install: make deps
+
+script: make all test
